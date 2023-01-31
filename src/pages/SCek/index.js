@@ -45,109 +45,79 @@ export default function SCek({ navigation }) {
             <ViewShot style={{
                 flex: 1,
             }} ref={ref} options={{ fileName: "CARD_" + user.id_user, format: "jpg", quality: 0.9 }}>
-                <ImageBackground source={require('../../assets/back.png')} style={{
-                    flex: 1,
-                    backgroundColor: colors.white,
-                }}>
+                <ScrollView style={{ flex: 1 }}>
                     <View style={{
-                        flex: 0.3,
-                        backgroundColor: colors.tertiary,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderBottomRightRadius: 50,
-                        borderBottomLeftRadius: 50,
-
-                    }}>
-                        <Image source={require('../../assets/logo.png')} style={{
-                            width: 70,
-                            resizeMode: 'contain'
-
-                        }} />
-                    </View>
-                    <View>
-                        <Text style={{
-                            fontFamily: fonts.secondary[800],
-                            fontSize: windowWidth / 18,
-                            color: colors.black,
-                            textAlign: 'center',
-                            textShadowColor: colors.white,
-                            textShadowOffset: { width: 2, height: 2 },
-                            textShadowRadius: 10,
-
-                        }}>LEMBAGA BANTUAN HUKUM</Text>
-                        <Text style={{
-                            fontFamily: fonts.secondary[800],
-                            fontSize: windowWidth / 12,
-                            textShadowColor: colors.white,
-                            textShadowOffset: { width: 2, height: 2 },
-                            textShadowRadius: 10,
-                            color: colors.black,
-                            textAlign: 'center'
-                        }}>MUSTIKA BANGSA</Text>
-                    </View>
-                    <View style={{
-                        flex: 1,
+                        position: 'relative',
                         justifyContent: 'center',
                         alignItems: 'center'
                     }}>
-
+                        <Image source={require('../../assets/back.png')} style={{
+                            width: 360,
+                            height: 640,
+                            resizeMode: 'contain'
+                        }} />
                         <View style={{
-                            width: 210,
-                            height: 310,
-                            backgroundColor: colors.black,
+                            position: 'absolute',
                             justifyContent: 'center',
                             alignItems: 'center'
                         }}>
-                            <Image source={{
-                                uri: user.foto_user
-                            }} style={{
-                                width: 200,
-                                height: 300,
 
-                            }} />
+                            <View style={{
+                                marginTop: 120,
+                                width: 150,
+                                height: 230,
+                                backgroundColor: colors.black,
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                                <Image source={{
+                                    uri: user.foto_user
+                                }} style={{
+                                    width: 140,
+                                    height: 220,
+
+                                }} />
+                            </View>
+                            <Text style={{
+                                fontFamily: fonts.secondary[800],
+                                fontSize: windowWidth / 18,
+                                color: colors.black,
+                                textAlign: 'center',
+                            }}>{user.nama_lengkap}</Text>
+                            <Text style={{
+                                fontFamily: fonts.secondary[800],
+                                fontSize: windowWidth / 18,
+                                color: colors.black,
+                                textAlign: 'center',
+                            }}>NIA. {user.id_user}</Text>
                         </View>
-                        <Text style={{
-                            fontFamily: fonts.secondary[800],
-                            fontSize: windowWidth / 18,
-                            color: colors.black,
-                            textAlign: 'center',
-                        }}>{user.nama_lengkap}</Text>
-                        <Text style={{
-                            fontFamily: fonts.secondary[800],
-                            fontSize: windowWidth / 18,
-                            color: colors.black,
-                            textAlign: 'center',
-                        }}>NIA. {user.id_user}</Text>
                     </View>
+
                     <View style={{
-                        flex: 0.2,
-                        backgroundColor: colors.tertiary,
+                        position: 'relative',
                         justifyContent: 'center',
                         alignItems: 'center'
                     }}>
-                        <Text style={{
-                            fontFamily: fonts.secondary[600],
-                            fontSize: windowWidth / 30,
-                            color: colors.white
-                        }}>KEPUTUSAN</Text>
-                        <Text style={{
-                            fontFamily: fonts.secondary[600],
-                            fontSize: windowWidth / 30,
-                            color: colors.white
-                        }}>MENTRI HUKUM DAN HAM RI</Text>
-                        <Text style={{
-                            fontFamily: fonts.secondary[600],
-                            fontSize: windowWidth / 30,
-                            color: colors.white
-                        }}>NO. AHU-0003123.AH.01.07.TAHUN 2015</Text>
-                        <Text style={{
-                            fontFamily: fonts.secondary[600],
-                            fontSize: windowWidth / 30,
-                            color: colors.white
-                        }}>NO. AHU-0000334.AH.01.08.TAHUN 2018</Text>
+                        <Image source={require('../../assets/front.png')} style={{
+                            width: 360,
+                            height: 640,
+                            resizeMode: 'contain'
+                        }} />
+                        <View style={{
+                            position: 'absolute',
+                            bottom: 50,
+                            left: 40,
+                        }}>
+                            <Text style={{
+                                fontFamily: fonts.secondary[800],
+                                fontSize: windowWidth / 25,
+                                color: colors.black,
+                                textAlign: 'center',
+                            }}>Expired: {user.expired}</Text>
+                        </View>
                     </View>
+                </ScrollView>
 
-                </ImageBackground >
             </ViewShot>
             <MyButton onPress={() => {
 
