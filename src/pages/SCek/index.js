@@ -46,12 +46,13 @@ export default function SCek({ navigation }) {
             <ViewShot style={{
                 flex: 1,
             }} ref={ref} options={{ fileName: "CARD_" + user.id_user, format: "jpg", quality: 0.9 }}>
-                <ScrollView style={{ flex: 1 }}>
+                <ScrollView horizontal style={{ flex: 1, }}>
                     <View style={{
+                        backgroundColor: colors.white,
+                        width: windowWidth,
+                        height: windowHeight,
                         position: 'relative',
-                        justifyContent: 'center',
                         alignItems: 'center',
-                        paddingTop: 10,
                     }}>
                         <Image source={require('../../assets/back.png')} style={{
                             width: 360,
@@ -60,11 +61,12 @@ export default function SCek({ navigation }) {
                         <View style={{
                             position: 'absolute',
                             justifyContent: 'center',
-                            alignItems: 'center'
+                            alignItems: 'center',
+                            marginTop: 250,
                         }}>
 
                             <View style={{
-                                marginTop: 150,
+
                                 width: 145,
                                 height: 225,
                                 backgroundColor: colors.black,
@@ -100,11 +102,13 @@ export default function SCek({ navigation }) {
                         </View>
                     </View>
 
-                    <MyGap jarak={20} />
+                    <MyGap jarak={windowHeight / 8} />
                     <View style={{
+                        backgroundColor: colors.white,
+                        width: windowWidth,
+                        height: windowHeight,
                         position: 'relative',
-                        justifyContent: 'center',
-                        alignItems: 'center'
+                        alignItems: 'center',
                     }}>
                         <Image source={require('../../assets/front.png')} style={{
                             width: 360,
@@ -112,7 +116,7 @@ export default function SCek({ navigation }) {
                         }} />
                         <View style={{
                             position: 'absolute',
-                            bottom: 20,
+                            bottom: 100,
                             left: 40,
                         }}>
                             <Text style={{
@@ -123,7 +127,7 @@ export default function SCek({ navigation }) {
                             }}>Expired: {moment(user.expired).format('DD/MM/YYYY')}</Text>
                         </View>
                     </View>
-                    <MyGap jarak={10} />
+
                 </ScrollView>
 
             </ViewShot>
