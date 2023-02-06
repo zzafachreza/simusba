@@ -10,77 +10,94 @@ import { Icon } from 'react-native-elements/dist/icons/Icon';
 import { MyButton, MyGap, MyInput, MyPicker } from '../../components';
 import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
-import DatePicker from 'react-native-datepicker'
 import { maskJs, maskCurrency } from 'mask-js';
+import DatePicker from 'react-native-modern-datepicker';
+import moment from 'moment';
 export default function SAdd({ navigation, route }) {
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const isFocused = useIsFocused();
 
     const [kirim, setKirim] = useState({
-        region: '',
-        pt: '',
-        nomor_kk: '',
-        kepala_keluarga: '',
-        tipe_rumah: '',
-        blok_rumah: '',
-        nomor_rumah: '',
-        nik_karyawan: '',
-        nomor_ktp: '',
-        nama_anggota_keluarga: '',
-        jenis_kelamin: 'L',
-        status_hubungan_keluarga: '',
-        status_perkawinan: 'Kawin',
-        akta_lahir: 'Ada',
-        alamat_ktp: '',
-        alamat_sekarang: '',
-        tempat_lahir: '',
-        tanggal_lahir: '01/01/2000',
-        usia: '',
-        agama: 'Islam',
-        suku: '',
-        pendidikan_terakhir: '',
-        jenjang_pendidikan: '',
-        nama_sekolah: '',
-        jenis_sekolah: '',
-        alasan_anak_tidak_sekolah: '',
-        status_pekerjaan: '',
-        status_tinggal: '',
-        alamat_asal_pengunjung: '',
+        nomor: '',
+        nama_anggota: route.params.nama_lengkap,
+        no_nia: route.params.id_user,
+        perwakilan: '',
+        jenis_perkara: 'Pidana',
         keterangan: '',
+        tanggal: moment(new Date()).format('YYYY-MM-DD')
 
     });
+
+
+
+
 
 
     // setLoading(false);
 
     const sendServer = () => {
         console.log(kirim);
-        // setLoading(true);
+        setLoading(true);
 
-        axios.post(apiURL + 'insert_penduduk', kirim).then(res => {
+        axios.post(apiURL + 'insert_perkara', kirim).then(res => {
             console.log(res.data);
             if (res.data == 200) {
-                Alert.alert('Sensus Warga', 'Data berhasil di simpan !');
+                Alert.alert('Simusba', 'Data berhasil di simpan !');
                 navigation.goBack();
             }
         })
     }
 
     const [region, setRegion] = useState([]);
+    const [user, setUser] = useState({});
+    const [nomor, setNomor] = useState('');
+
 
     useEffect(() => {
 
-        axios.post(apiURL + 'region').then(res => {
-            console.log(res.data);
+
+
+        if (isFocused) {
+            // getNomor()
+            getPerwakilan();
+        }
+
+
+
+
+
+
+    }, [isFocused])
+
+    const getNomor = () => {
+        axios.post(apiURL + 'get_nomor').then(res => {
+            console.log('nomor z', res.data);
+            // setNomor(res.data);
+
+            setKirim({
+                ...kirim,
+                nomor: res.data
+            });
+
+            setLoading(false)
+
+
+        })
+    }
+
+    const getPerwakilan = () => {
+
+        axios.post(apiURL + 'perwakilan').then(res => {
+
             setRegion(res.data);
             setKirim({
                 ...kirim,
-                region: res.data[0].value
-            })
+                perwakilan: res.data[0].value
+            });
+            getNomor()
         })
-
-    }, [])
-
+    }
     return (
         <SafeAreaView style={{
             flex: 1,
@@ -89,79 +106,41 @@ export default function SAdd({ navigation, route }) {
         }}>
 
 
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <MyPicker iconname="list" onValueChange={x => setKirim({ ...kirim, region: x })} label="Region" data={region} />
+            {!loading && <ScrollView showsVerticalScrollIndicator={false}>
 
-                <MyInput iconname='create' label='PT' onChangeText={x => { setKirim({ ...kirim, pt: x }) }} />
-                <MyInput iconname='create' keyboardType='number-pad' label='No KK*' onChangeText={x => { setKirim({ ...kirim, nomor_kk: x }) }} />
-                <MyInput iconname='create' label='Nama Kepala Keluarga' onChangeText={x => { setKirim({ ...kirim, kepala_keluarga: x }) }} />
-                <MyInput iconname='create' label='Type*' onChangeText={x => { setKirim({ ...kirim, tipe_rumah: x }) }} />
+                <DatePicker
+                    options={{
+                        backgroundColor: colors.white,
+                        textHeaderColor: colors.primary,
+                        textDefaultColor: colors.black,
+                        selectedTextColor: colors.white,
+                        mainColor: colors.primary,
+                        textSecondaryColor: '#D6C7A1',
+                        borderColor: 'rgba(122, 146, 165, 0.1)',
+                    }}
+                    current={kirim.tanggal}
+                    selected={kirim.tanggal}
+                    mode="calendar"
+                    onDateChange={x => {
+                        setKirim({
+                            ...kirim,
+                            tanggal: x.replace("/", "-").replace("/", "-")
+                        })
+                    }}
 
-                <MyInput iconname='create' label='Blok*' onChangeText={x => { setKirim({ ...kirim, blok_rumah: x }) }} />
-                <MyInput iconname='create' label='No. Rumah*' onChangeText={x => { setKirim({ ...kirim, nomor_rumah: x }) }} />
-                <MyInput iconname='create' label='NIK Karyawan' onChangeText={x => { setKirim({ ...kirim, nik_karyawan: x }) }} />
-                <MyInput iconname='create' keyboardType='number-pad' label='No KTP*' onChangeText={x => { setKirim({ ...kirim, nomor_ktp: x }) }} />
-                <MyInput iconname='create' label='Nama Anggota Keluarga*' onChangeText={x => { setKirim({ ...kirim, nama_anggota_keluarga: x }) }} />
-                <MyPicker iconname="list" onValueChange={x => setKirim({ ...kirim, jenis_kelamin: x })} label="L/P*" data={[
-                    { label: 'L', value: 'L', },
-                    { label: 'P', value: 'P', },
+                    style={{ borderRadius: 10 }}
+                />
+                <MyInput iconname='document-text' label='Nomor Perkara' value={kirim.nomor} />
+                <MyInput iconname='person' label='Nama Anggota' value={kirim.nama_anggota.toString()} />
+                <MyInput iconname='card' label='No. NIA' value={kirim.no_nia.toString()} />
+                <MyPicker iconname="location" onValueChange={x => setKirim({ ...kirim, perwakilan: x })} label="Kantor Perwakilan" data={region} />
+                <MyPicker iconname="list" onValueChange={x => setKirim({ ...kirim, jenis_perkara: x })} label="Jenis Perkara" data={[
+                    { label: 'Pidana', value: 'Pidana', },
+                    { label: 'Perdata', value: 'Perdata', },
                 ]} />
-                <MyInput iconname='create' label='Status Hubungan dalam Keluarga*' onChangeText={x => { setKirim({ ...kirim, status_hubungan_keluarga: x }) }} />
+                <MyInput iconname='create' label='Keterangan' placeholder='Masukan keterangan' onChangeText={x => { setKirim({ ...kirim, keterangan: x }) }} />
 
-
-                <MyPicker iconname="list" onValueChange={x => setKirim({ ...kirim, status_perkawinan: x })} label="Status Perkawinan" data={[
-                    { label: 'Kawin', value: 'Kawin', },
-                    { label: 'Tidak Kawin', value: 'Tidak Kawin', },
-                ]} />
-
-                <MyPicker iconname="list" onValueChange={x => setKirim({ ...kirim, akta_lahir: x })} label="Akta Lahir" data={[
-                    { label: 'Ada', value: 'Ada', },
-                    { label: 'Tidak', value: 'Tidak', },
-                ]} />
-
-
-
-                <MyInput iconname='create' label='Alamat tinggal Sesuai KTP' onChangeText={x => { setKirim({ ...kirim, alamat_ktp: x }) }} />
-                <MyInput iconname='create' label='Alamat Sekarang' onChangeText={x => { setKirim({ ...kirim, alamat_sekarang: x }) }} />
-                <MyInput iconname='create' label='Tempat Lahir' onChangeText={x => { setKirim({ ...kirim, tempat_lahir: x }) }} />
-
-                <MyInput value={kirim.tanggal_lahir} keyboardType='number-pad' maxLength={10} iconname='create' label='Tanggal lahir* contoh : 29/04/1995' onChangeText={x => {
-                    // console.log()
-                    setKirim({
-                        ...kirim,
-
-                        tanggal_lahir: maskJs('99/99/9999', x)
-
-                    })
-                }} />
-
-
-                <MyInput iconname='create' keyboardType='number-pad' label='Usia' onChangeText={x => { setKirim({ ...kirim, usia: x }) }} />
-
-
-                <MyPicker iconname="list" onValueChange={x => setKirim({ ...kirim, agama: x })} label="Agama" data={[
-                    { label: 'Islam', value: 'Islam', },
-                    { label: 'Katholik', value: 'Katholik', },
-                    { label: 'Kristen', value: 'Kristen', },
-                    { label: 'Hindu', value: 'Hindu', },
-                    { label: 'Budha', value: 'Budha', },
-
-                ]} />
-
-
-
-                <MyInput iconname='create' label='Suku' onChangeText={x => { setKirim({ ...kirim, suku: x }) }} />
-                <MyInput iconname='create' label='Pendidikan Terakhir yang ditamatkan*' onChangeText={x => { setKirim({ ...kirim, pendidikan_terakhir: x }) }} />
-                <MyInput iconname='create' label='Jenjang Pendidikan' onChangeText={x => { setKirim({ ...kirim, jenjang_pendidikan: x }) }} />
-                <MyInput iconname='create' label='Nama Sekolah' onChangeText={x => { setKirim({ ...kirim, nama_sekolah: x }) }} />
-                <MyInput iconname='create' label='Jenis Sekolah' onChangeText={x => { setKirim({ ...kirim, jenis_sekolah: x }) }} />
-                <MyInput iconname='create' label='Alasan Jika Anak Tidak Sekolah' onChangeText={x => { setKirim({ ...kirim, alasan_anak_tidak_sekolah: x }) }} />
-                <MyInput iconname='create' label='Status Pekerjaan*' onChangeText={x => { setKirim({ ...kirim, status_pekerjaan: x }) }} />
-                <MyInput iconname='create' label='Status Tinggal*' onChangeText={x => { setKirim({ ...kirim, status_tinggal: x }) }} />
-                <MyInput iconname='create' label='Alamat Asal Pengunjung' onChangeText={x => { setKirim({ ...kirim, alamat_asal_pengunjung: x }) }} />
-                <MyInput iconname='create' label='Ket' onChangeText={x => { setKirim({ ...kirim, keterangan: x }) }} />
-
-            </ScrollView>
+            </ScrollView>}
 
             <MyGap jarak={20} />
             {!loading && <MyButton onPress={sendServer} title="SIMPAN" warna={colors.primary} Icons="person-add" />}

@@ -69,11 +69,13 @@ export default function Home({ navigation }) {
         height: windowHeight / 8
       }} >
         <View style={{
-
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingHorizontal: 10,
         }}>
           <Image source={img} style={{
-            width: windowHeight / 6,
-            height: windowHeight / 12,
+            width: 50,
+            height: 50,
             resizeMode: 'contain'
           }} />
         </View>
@@ -81,13 +83,13 @@ export default function Home({ navigation }) {
           <Text style={{
             fontFamily: fonts.secondary[600],
             color: colors.white,
-            fontSize: windowWidth / 20,
+            fontSize: 15,
 
           }}>{judul}</Text>
           <Text style={{
             fontFamily: fonts.secondary[400],
             color: colors.white,
-            fontSize: windowWidth / 30,
+            fontSize: 12,
 
           }}>{desc}</Text>
         </View>
@@ -116,7 +118,7 @@ export default function Home({ navigation }) {
           }}>
             <Text style={{
               fontFamily: fonts.secondary[400],
-              fontSize: windowWidth / 28,
+              fontSize: windowWidth / 32,
               color: colors.white
             }}>Selamat datang, {user.nama_lengkap}</Text>
             <Text style={{
@@ -151,12 +153,26 @@ export default function Home({ navigation }) {
         flex: 1,
         justifyContent: 'center'
       }}>
-        <MyMenu onPress={() => navigation.navigate('SDaftar')} img={require('../../assets/A1.png')} judul="Web Resmi Perwakilan" desc="data web resmi perwakilan" />
-        <MyMenu onPress={() => Linking.openURL(company.website)} img={require('../../assets/A2.png')} judul="Kegiatan LBH Musba" desc="data kegiatan lbh musba" />
-        <MyMenu onPress={() => navigation.navigate('SCek')} img={require('../../assets/A3.png')} judul="Kartu Anggota" desc="Informasi kartu anggota" />
+        <MyMenu onPress={() => navigation.navigate('SCek')} img={require('../../assets/A3.png')} judul="Kartu Tanda Anggota" desc="Informasi kartu tanda anggota" />
+        <MyMenu onPress={() => navigation.navigate('SAdd', user)} img={require('../../assets/A2.png')} judul="Pendaftaran Perkara" desc="Input pendaftaran perkara" />
+        <MyMenu onPress={() => navigation.navigate('SDaftar')} img={require('../../assets/A1.png')} judul="Kantor Perwakilan LBH Musba" desc="data kantor perwakilan LBH Musba" />
+
+
       </View>
 
+      <View style={{
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <Text style={{
+          textAlign: 'center',
+          maxWidth: '90%',
+          fontFamily: fonts.secondary[600],
+          fontSize: 12,
+          marginBottom: 10,
+        }}>Segala akibat hukum yang timbul akibat penyalahgunaan aplikasi ini adalah menjadi tanggung jawab pribadi masing-masing</Text>
 
+      </View>
 
     </SafeAreaView >
   )

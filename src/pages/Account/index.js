@@ -125,6 +125,7 @@ export default function ({ navigation, route }) {
                         }} />
                     </View>
                     <MyList label="Nomor ID Anggota" value={user.id_user} />
+                    <MyList label="Status" value={user.status} />
                     <MyList label="Perwakilan" value={user.perwakilan} />
                     <MyList label="Nama Lengkap" value={user.nama_lengkap} />
                     <MyList label="Telepon / Whatsapp" value={user.telepon} />

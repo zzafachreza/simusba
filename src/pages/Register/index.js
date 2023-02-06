@@ -62,6 +62,7 @@ export default function Register({ navigation }) {
         api_token: api_token,
         password: '',
         id_user: '',
+        status: 'ADVOCAT',
         nama_lengkap: '',
         perwakilan: '',
         telepon: '',
@@ -161,6 +162,17 @@ export default function Register({ navigation }) {
                 />
                 <MyGap jarak={10} />
 
+                <MyPicker label="Status" iconname="ribbon" data={[
+                    {
+                        label: 'ADVOCAT', value: 'ADVOCAT'
+                    },
+                    {
+                        label: 'PARALEGAL', value: 'PARALEGAL'
+                    }
+                ]} onValueChange={x => setData({
+                    ...data,
+                    status: x
+                })} />
 
                 <MyGap jarak={10} />
                 <MyInput

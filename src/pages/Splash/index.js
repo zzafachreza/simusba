@@ -69,11 +69,11 @@ export default function Splash({ navigation }) {
             }
           }
         />
+
         <ActivityIndicator size="large" color={colors.primary} />
 
 
       </View>
-
 
 
 

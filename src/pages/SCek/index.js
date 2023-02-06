@@ -7,7 +7,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { showMessage } from 'react-native-flash-message';
 import Sound from 'react-native-sound';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
-import { MyButton, MyInput } from '../../components';
+import { MyButton, MyGap, MyInput } from '../../components';
 import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 import { FloatingAction } from "react-native-floating-action";
@@ -15,6 +15,7 @@ import 'intl';
 import 'intl/locale-data/jsonp/en';
 import ViewShot from "react-native-view-shot";
 import Share from 'react-native-share';
+import moment from 'moment';
 
 export default function SCek({ navigation }) {
     const ref = useRef();
@@ -49,12 +50,12 @@ export default function SCek({ navigation }) {
                     <View style={{
                         position: 'relative',
                         justifyContent: 'center',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        paddingTop: 10,
                     }}>
                         <Image source={require('../../assets/back.png')} style={{
                             width: 360,
                             height: 640,
-                            resizeMode: 'contain'
                         }} />
                         <View style={{
                             position: 'absolute',
@@ -63,9 +64,9 @@ export default function SCek({ navigation }) {
                         }}>
 
                             <View style={{
-                                marginTop: 120,
-                                width: 150,
-                                height: 230,
+                                marginTop: 150,
+                                width: 145,
+                                height: 225,
                                 backgroundColor: colors.black,
                                 justifyContent: 'center',
                                 alignItems: 'center'
@@ -79,20 +80,27 @@ export default function SCek({ navigation }) {
                                 }} />
                             </View>
                             <Text style={{
-                                fontFamily: fonts.secondary[800],
-                                fontSize: windowWidth / 18,
+                                fontFamily: fonts.secondary[600],
+                                fontSize: 20,
                                 color: colors.black,
                                 textAlign: 'center',
                             }}>{user.nama_lengkap}</Text>
                             <Text style={{
-                                fontFamily: fonts.secondary[800],
-                                fontSize: windowWidth / 18,
+                                fontFamily: fonts.secondary[600],
+                                fontSize: 20,
                                 color: colors.black,
                                 textAlign: 'center',
                             }}>NIA. {user.id_user}</Text>
+                            <Text style={{
+                                fontFamily: fonts.secondary[600],
+                                fontSize: 20,
+                                color: colors.black,
+                                textAlign: 'center',
+                            }}>{user.status}</Text>
                         </View>
                     </View>
 
+                    <MyGap jarak={20} />
                     <View style={{
                         position: 'relative',
                         justifyContent: 'center',
@@ -101,11 +109,10 @@ export default function SCek({ navigation }) {
                         <Image source={require('../../assets/front.png')} style={{
                             width: 360,
                             height: 640,
-                            resizeMode: 'contain'
                         }} />
                         <View style={{
                             position: 'absolute',
-                            bottom: 50,
+                            bottom: 20,
                             left: 40,
                         }}>
                             <Text style={{
@@ -113,9 +120,10 @@ export default function SCek({ navigation }) {
                                 fontSize: windowWidth / 25,
                                 color: colors.black,
                                 textAlign: 'center',
-                            }}>Expired: {user.expired}</Text>
+                            }}>Expired: {moment(user.expired).format('DD/MM/YYYY')}</Text>
                         </View>
                     </View>
+                    <MyGap jarak={10} />
                 </ScrollView>
 
             </ViewShot>
