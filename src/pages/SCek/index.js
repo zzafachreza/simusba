@@ -83,19 +83,19 @@ export default function SCek({ navigation }) {
                             </View>
                             <Text style={{
                                 fontFamily: fonts.secondary[600],
-                                fontSize: 20,
+                                fontSize: 17,
                                 color: colors.black,
                                 textAlign: 'center',
                             }}>{user.nama_lengkap}</Text>
                             <Text style={{
                                 fontFamily: fonts.secondary[600],
-                                fontSize: 20,
+                                fontSize: 17,
                                 color: colors.black,
                                 textAlign: 'center',
                             }}>NIA. {user.id_user}</Text>
                             <Text style={{
                                 fontFamily: fonts.secondary[600],
-                                fontSize: 20,
+                                fontSize: 17,
                                 color: colors.black,
                                 textAlign: 'center',
                             }}>{user.status}</Text>

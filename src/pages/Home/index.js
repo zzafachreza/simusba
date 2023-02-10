@@ -155,7 +155,7 @@ export default function Home({ navigation }) {
       }}>
         <MyMenu onPress={() => navigation.navigate('SCek')} img={require('../../assets/A3.png')} judul="Kartu Tanda Anggota" desc="Informasi kartu tanda anggota" />
         <MyMenu onPress={() => navigation.navigate('SAdd', user)} img={require('../../assets/A2.png')} judul="Pendaftaran Perkara" desc="Input pendaftaran perkara" />
-        <MyMenu onPress={() => navigation.navigate('SDaftar')} img={require('../../assets/A1.png')} judul="Kantor Perwakilan LBH Musba" desc="data kantor perwakilan LBH Musba" />
+        <MyMenu onPress={() => navigation.navigate('SDaftar')} img={require('../../assets/A1.png')} judul="Perwakilan LBH Musba" desc="Data kantor perwakilan LBH Musba" />
 
 
       </View>
@@ -167,11 +167,16 @@ export default function Home({ navigation }) {
         <Text style={{
           textAlign: 'center',
           maxWidth: '90%',
+          fontFamily: fonts.secondary[400],
+          fontSize: 12,
+          marginBottom: 5,
+        }}>Segala akibat hukum yang timbul disebabkan penyalahgunaan aplikasi ini adalah menjadi tanggung jawab pribadi masing-masing</Text>
+        <Text style={{
+          textAlign: 'center',
           fontFamily: fonts.secondary[600],
           fontSize: 12,
-          marginBottom: 10,
-        }}>Segala akibat hukum yang timbul akibat penyalahgunaan aplikasi ini adalah menjadi tanggung jawab pribadi masing-masing</Text>
-
+          marginBottom: 5,
+        }}>By LBH Musba 2023</Text>
       </View>
 
     </SafeAreaView >

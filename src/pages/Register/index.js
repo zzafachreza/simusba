@@ -164,7 +164,7 @@ export default function Register({ navigation }) {
 
                 <MyPicker label="Status" iconname="ribbon" data={[
                     {
-                        label: 'ADVOCAT', value: 'ADVOCAT'
+                        label: 'ADVOKAT', value: 'ADVOKAT'
                     },
                     {
                         label: 'PARALEGAL', value: 'PARALEGAL'
